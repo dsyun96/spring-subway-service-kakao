@@ -2,6 +2,7 @@ package subway.member.ui;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import subway.auth.domain.AuthenticationPrincipal;
 import subway.member.application.MemberService;
 import subway.member.domain.LoginMember;
 import subway.member.dto.MemberRequest;
@@ -42,7 +43,7 @@ public class MemberController {
     }
 
     @GetMapping("/members/me")
-    public ResponseEntity<MemberResponse> findMemberOfMine(LoginMember loginMember) {
+    public ResponseEntity<MemberResponse> findMemberOfMine(@AuthenticationPrincipal LoginMember loginMember) {
         MemberResponse member = memberService.findMember(loginMember.getId());
         return ResponseEntity.ok().body(member);
     }
